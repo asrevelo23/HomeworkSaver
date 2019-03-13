@@ -7,9 +7,9 @@ module.exports = function (controller) {
 
         bot.startConversation(message, function (err, convo) {
 
-            convo.ask("What is your favorite color?", [
+            convo.ask("What is your least important homework?", [
                 {
-                    pattern: "^blue|green|pink|red|yellow$",
+                    pattern: "^EE316|EE313|EE325|EE333T|EE422C$",
                     callback: function (response, convo) {
                         convo.gotoThread("confirm_choice");
                     },
@@ -25,7 +25,7 @@ module.exports = function (controller) {
 
             // Bad response
             convo.addMessage({
-                text: "Sorry, I don't know this color.<br/>_Tip: try blue, green, pink, red or yellow!_",
+                text: "Sorry, I don't know this class.<br/>_Tip: try EE316, EE422C, EE333T, EE313 or EE325!_",
                 action: 'default',
             }, 'bad_response');
 
@@ -53,7 +53,7 @@ module.exports = function (controller) {
 
             // Success thread
             convo.addMessage(
-                "Cool, I love '{{vars.color}}' too",
+                "I will remind you about your '{{vars.color}}' homework",
                 "success");
         });
     });
