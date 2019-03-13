@@ -7,9 +7,9 @@ module.exports = function (controller) {
 
         // Check if a User preference already exists
         var userId = message.raw_message.actorId;
-        controller.storage.users.get(userId, function (err, data) {
+        controller.remember.users.get(userId, function (err, data) {
             if (err) {
-                bot.reply(message, 'could not access storage, err: ' + err.message, function (err, message) {
+                bot.reply(message, 'could not access homeworks storaged, err: ' + err.message, function (err, message) {
                     bot.reply(message, 'sorry, I am not feeling well \uF613! try again later...');
                 });
                 return;
@@ -41,7 +41,7 @@ function showUserPreference(controller, bot, message, userId, color) {
                 callback: function (response, convo) {
 
                     // [WORKAROUND] use storage.users.delete if in-memory storage and storage.users.remove if redis storage
-                    controller.storage.users.delete(userId, function (err) {
+                    controller.remember.users.delete(userId, function (err) {
                         if (err) {
                             // [TODO] Turn into a thread or simply stop the current conversation
                             // convo.say(message, 'sorry, could not access storage, err: ' + err.message);
@@ -77,9 +77,9 @@ function askForUserPreference(controller, bot, message, userId) {
                     // Store color as user preference
                     var pickedColor = convo.extractResponse('answer');
                     var userPreference = { id: userId, value: pickedColor };
-                    controller.storage.users.save(userPreference, function (err) {
+                    controller.remember.users.save(userPreference, function (err) {
                         if (err) {
-                            convo.say(message, 'sorry, could not access storage, err: ' + err.message);
+                            convo.say(message, 'sorry, could not access homeworks storaged, err: ' + err.message);
                             convo.next();
                             return;
                         }
