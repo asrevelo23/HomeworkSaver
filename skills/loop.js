@@ -59,7 +59,7 @@ module.exports = function (controller) {
 
             // Menu option 3)
             convo.addMessage({
-                text: "Nothing's like meeting in person at a conference, training or a hackathon. Check the list of [DevNet events](https://calendar.utexas.edu/).",
+                text: "Nothing's like meeting in person at a conference, training or a hackathon. Check the list of [UT events](https://calendar.utexas.edu/).",
                 action: 'default'
             }, 'menu_3');
 
