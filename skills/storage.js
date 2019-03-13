@@ -33,7 +33,7 @@ function showUserPreference(controller, bot, message, userId, color) {
 
         // [GOOD TO KNOW] Mentions are now failing in 1-1 spaces
         //convo.sayFirst(`Hey, I know you <@personId:${userId}>!<br/> '${color}' is your favorite color.`);
-        convo.sayFirst(`Hey, I know you! **'${color}'** is your favorite color.`);
+        convo.sayFirst(`Hey, I know have ! **'${homework}'** due soon.`);
 
         convo.ask("Should I erase your preference? (yes/**no**)", [
             {
@@ -49,7 +49,7 @@ function showUserPreference(controller, bot, message, userId, color) {
                             return;
                         }
 
-                        convo.say("Successfully reset your color preference.");
+                        convo.say("Successfully save your upcoming homework.");
                         convo.next();
                     });
 
@@ -69,9 +69,9 @@ function showUserPreference(controller, bot, message, userId, color) {
 function askForUserPreference(controller, bot, message, userId) {
     bot.startConversation(message, function (err, convo) {
 
-        convo.ask("What is your favorite color?", [
+        convo.ask("What is your least important homework?", [
             {
-                pattern: "^blue|green|pink|red|yellow$",
+                pattern: "^EE316|EE325|EE333T|EE313$",
                 callback: function (response, convo) {
 
                     // Store color as user preference
@@ -105,7 +105,7 @@ function askForUserPreference(controller, bot, message, userId) {
 
         // Success thread
         convo.addMessage(
-            "Cool, I love '{{responses.answer}}' too",
+            "Cool, I'll reming you about '{{responses.answer}}' homework",
             "success");
     });
 }
