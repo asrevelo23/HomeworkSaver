@@ -7,15 +7,13 @@ module.exports = function (controller) {
 
         bot.startConversation(message, function (err, convo) {
             convo.say('This is a Botkit conversation sample.');
-            convo.ask('Do you have any homework due?.', function (response, convo) {
-            convo.say("I can remind you about your '" + response.text + "' homework. Please type **help** to see all my options.");
-          
-           convo.next();
+
+            convo.ask('What homework do you have due?', function (response, convo) {
+                convo.say("I can remind you about your '" + response.text + "' homework! Please type **help** to see al my functions.");
+                convo.next();
             });
         });
 
     });
 };
-
-
 
