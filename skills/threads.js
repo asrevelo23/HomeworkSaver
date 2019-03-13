@@ -39,7 +39,7 @@ module.exports = function (controller) {
                         // We've got 2 options at this point:
 
                         // 1. simply repeat the question
-                        //convo.repeat();
+                        convo.repeat();
                         //convo.next();
 
                         // 2. or provide extra info, then repeat the question
