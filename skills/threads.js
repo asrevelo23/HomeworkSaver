@@ -8,15 +8,15 @@
 //
 module.exports = function (controller) {
 
-    controller.hears([/^threads$/], 'direct_message,direct_mention', function (bot, message) {
+    controller.hears([/^conv$/], 'direct_message,direct_mention', function (bot, message) {
 
         bot.startConversation(message, function (err, convo) {
 
-            convo.ask("What about coffee (yes/**no**/cancel)", [
+            convo.ask("Do you have an exam coming up? (yes/**no**/cancel)", [
                 {
                     pattern: "yes|yeh|sure|oui|si",
                     callback: function (response, convo) {
-                        convo.say("Go, get some !");
+                        convo.say("Need to start studying !");
                         convo.next();
                     },
                 }
@@ -55,8 +55,8 @@ module.exports = function (controller) {
             }, 'bad_response');
 
             // Thread: ask for a drink
-            convo.addQuestion('What would you like to drink?', function (response, convo) {
-                convo.say(`I love '${response.text}' too`);
+            convo.addQuestion('When is your next exam?', function (response, convo) {
+                convo.say(`You should think ahead and start preaping for that exam then.`);
                 convo.next();
             }, {}, 'ask_drink');
         });
