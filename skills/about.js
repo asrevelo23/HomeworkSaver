@@ -9,7 +9,7 @@ module.exports = function (controller, bot) {
     var botcommons = {
 
         // Bot description
-        "description": "Tell me about your school homework!",
+        "description": "Tell me about your school homework, I'll save it for you",
 
         // Where to get more information about the bot
         //"url": "https://github.com/CiscoDevNet/botkit-template",
@@ -22,7 +22,7 @@ module.exports = function (controller, bot) {
 
         // Messaging platform
         // [WORKAROUND] overriding Botkit's integrated support temporarly as 'ciscospark' is still returned
-        //"platform": bot.type,
+        "platform": bot.type,
         "platform": "webex",
 
         // the precise bot identity is loaded asynchronously, from a GET /people/me request
