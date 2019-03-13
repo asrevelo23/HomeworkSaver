@@ -105,7 +105,7 @@ function askForUserPreference(controller, bot, message, userId) {
 
         // Success thread
         convo.addMessage(
-            "Cool, I love '{{responses.answer}}' too",
+            "I remind your about your '{{responses.answer}}' homework",
             "success");
     });
 }
