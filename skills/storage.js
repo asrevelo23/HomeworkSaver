@@ -3,13 +3,13 @@
 //
 module.exports = function (controller) {
 
-    controller.hears([/^save/], 'direct_message,direct_mention', function (bot, message) {
+    controller.hears([/^storage$/], 'direct_message,direct_mention', function (bot, message) {
 
         // Check if a User preference already exists
         var userId = message.raw_message.actorId;
         controller.storage.users.get(userId, function (err, data) {
             if (err) {
-                bot.reply(message, 'could not access homeworks storaged, err: ' + err.message, function (err, message) {
+                bot.reply(message, 'could not access homework storage, err: ' + err.message, function (err, message) {
                     bot.reply(message, 'sorry, I am not feeling well \uF613! try again later...');
                 });
                 return;
@@ -33,9 +33,9 @@ function showUserPreference(controller, bot, message, userId, color) {
 
         // [GOOD TO KNOW] Mentions are now failing in 1-1 spaces
         //convo.sayFirst(`Hey, I know you <@personId:${userId}>!<br/> '${color}' is your favorite color.`);
-        convo.sayFirst(`Your homework *'${homework}'* is still pending.`);
+        convo.sayFirst(`Your least important homework is *'${color}'* .`);
 
-        convo.ask("Should I erase your preference? (yes/*no*)", [
+        convo.ask("Are you done with this homework? (yes/*no*)", [
             {
                 pattern: "^yes|ya|da|si|oui$",
                 callback: function (response, convo) {
@@ -49,7 +49,7 @@ function showUserPreference(controller, bot, message, userId, color) {
                             return;
                         }
 
-                        convo.say("Successfully reset your homework pending.");
+                        convo.say("Successfully reset your homework reminder.");
                         convo.next();
                     });
 
@@ -69,7 +69,7 @@ function showUserPreference(controller, bot, message, userId, color) {
 function askForUserPreference(controller, bot, message, userId) {
     bot.startConversation(message, function (err, convo) {
 
-        convo.ask("What homework do you have due?", [
+        convo.ask("What is your least important homework?", [
             {
                 pattern: "^EE316|EE313|EE325|EE333T|EE422C$",
                 callback: function (response, convo) {
@@ -84,7 +84,7 @@ function askForUserPreference(controller, bot, message, userId) {
                             return;
                         }
 
-                        convo.transitionTo("success", "successfully stored homework user preference");
+                        convo.transitionTo("success", "successfully stored user homework preference");
                     });
 
                 },
@@ -105,7 +105,7 @@ function askForUserPreference(controller, bot, message, userId) {
 
         // Success thread
         convo.addMessage(
-            "Cool, I've saved '{{responses.answer}}' homework",
+            "Cool, I love '{{responses.answer}}' too",
             "success");
     });
 }
