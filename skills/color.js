@@ -9,7 +9,7 @@ module.exports = function (controller) {
             convo.say('This is a Botkit conversation sample.');
 
             convo.ask('Do you have any homework due?.', function (response, convo) {
-                convo.say("Your homework '" + response.text + "' needs to be done soon, please type menu to see all my options.");
+                convo.say("I can remind you about your '" + response.text + "' homework. Please type **menu** to see all my options.");
                 convo.next();
             });
         });
