@@ -7,13 +7,10 @@ module.exports = function (controller) {
 
         bot.startConversation(message, function (err, convo) {
             convo.say('This is a Botkit conversation sample.');
-
-            convo.ask('Do you have any homework due?.(yes/**no**)', [
-            {
-                pattern: "^yes|ya|da|si|oui$",
-                callback: function (response, convo) {
-                convo.say("I can remind you about your homework. Please type **help** to see all my options.");
-                convo.next();
+            convo.ask('Do you have any homework due?.', function (response, convo) {
+            convo.say("I can remind you about your '" + response.text + "' homework. Please type **help** to see all my options.");
+          
+           convo.next();
             });
         });
 
