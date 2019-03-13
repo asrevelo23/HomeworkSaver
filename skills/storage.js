@@ -3,13 +3,13 @@
 //
 module.exports = function (controller) {
 
-    controller.hears([/^storage$/], 'direct_message,direct_mention', function (bot, message) {
+    controller.hears([/^homework$/], 'direct_message,direct_mention', function (bot, message) {
 
         // Check if a User preference already exists
         var userId = message.raw_message.actorId;
         controller.storage.users.get(userId, function (err, data) {
             if (err) {
-                bot.reply(message, 'could not access storage, err: ' + err.message, function (err, message) {
+                bot.reply(message, 'could not access homeworks storaged, err: ' + err.message, function (err, message) {
                     bot.reply(message, 'sorry, I am not feeling well \uF613! try again later...');
                 });
                 return;
@@ -33,7 +33,7 @@ function showUserPreference(controller, bot, message, userId, color) {
 
         // [GOOD TO KNOW] Mentions are now failing in 1-1 spaces
         //convo.sayFirst(`Hey, I know you <@personId:${userId}>!<br/> '${color}' is your favorite color.`);
-        convo.sayFirst(`Hey, I know you! *'${color}'* is your favorite color.`);
+        convo.sayFirst(`Your homework *'${homework}'* is still pending.`);
 
         convo.ask("Should I erase your preference? (yes/*no*)", [
             {
@@ -49,7 +49,7 @@ function showUserPreference(controller, bot, message, userId, color) {
                             return;
                         }
 
-                        convo.say("Successfully reset your color preference.");
+                        convo.say("Successfully reset your homework pending.");
                         convo.next();
                     });
 
@@ -69,9 +69,9 @@ function showUserPreference(controller, bot, message, userId, color) {
 function askForUserPreference(controller, bot, message, userId) {
     bot.startConversation(message, function (err, convo) {
 
-        convo.ask("What is your favorite color?", [
+        convo.ask("What homework do you have due?", [
             {
-                pattern: "^blue|green|pink|red|yellow$",
+                pattern: "^EE316|EE313|EE325|EE333T|EE422C$",
                 callback: function (response, convo) {
 
                     // Store color as user preference
@@ -84,7 +84,7 @@ function askForUserPreference(controller, bot, message, userId) {
                             return;
                         }
 
-                        convo.transitionTo("success", "successfully stored user preference");
+                        convo.transitionTo("success", "successfully stored homework user preference");
                     });
 
                 },
@@ -99,13 +99,13 @@ function askForUserPreference(controller, bot, message, userId) {
 
         // Bad response
         convo.addMessage({
-            text: "Sorry, I don't know this color.<br/>Tip: try blue, green, pink, red or yellow!",
+            text: "Sorry, I don't know this class.<br/>Tip: try EE316, EE422C, EE333T, EE313 or EE325!",
             action: 'default',
         }, 'bad_response');
 
         // Success thread
         convo.addMessage(
-            "Cool, I love '{{responses.answer}}' too",
+            "Cool, I've saved '{{responses.answer}}' homework",
             "success");
     });
 }
